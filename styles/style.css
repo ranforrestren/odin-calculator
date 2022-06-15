@@ -1,0 +1,42 @@
+body {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+#calculator {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  width: 450px;
+  border: 2px solid black;
+  background-color: lightgray;
+}
+
+#inputBox {
+  height: 80px;
+  margin: 20px;
+  border: 2px solid black;
+  background-color: white;
+}
+
+#buttons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+}
+
+.row {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  font-size: 2em;
+}
