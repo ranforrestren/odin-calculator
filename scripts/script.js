@@ -23,9 +23,7 @@ function eventHandler(eventID) {
   }
 
   // If a number key was pressed
-  if (eventID === 'zero' || 'one' || 'two' ||
-    'three' || 'four' || 'five' || 'six' ||
-    'seven' || 'eight' || 'nine') {
+  if (eventID.match(/^(zero|one|two|three|four|five|six|seven|eight|nine)$/)) {
     inputNumber(eventID);
   }
 
@@ -151,9 +149,9 @@ function division() {
 
 // Calculate function
 function calculate() {
-  let number1;
-  let number2;
-  if (calculator['display1'].textContent &&
+  let number1 = 0;
+  let number2 = 0;
+  if (calculator['display1'].textContent !== '' &&
     calculator['display2'].textContent !== '') {
     number1 = parseFloat(calculator['display2'].textContent.slice(0, -2));
     number2 = parseFloat(calculator['display1'].textContent);
@@ -169,8 +167,13 @@ function calculate() {
       calculator['display1'].textContent = number1 * number2;
     }
     if (calculator['currOper'] === 'division') {
+      if (number2 == 0) {
+        console.log('test');
+        calculator['display1'].textContent = "ERR0R CANNOT DIVIDE";
+      } else {
       console.log(number1 / number2);
       calculator['display1'].textContent = number1 / number2;
+      }
     }
   }
 }
