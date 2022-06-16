@@ -1,7 +1,7 @@
 const calculator = {
-  field1: '',
-  field2: '',
-  display: document.querySelector('#inputBox'),
+  display1: document.querySelector('#display1'),
+  display2: document.querySelector('#display2'),
+  currOper: '',
 }
 
 // Event listener for button presses
@@ -16,53 +16,161 @@ buttons.addEventListener('click', (e) => {
 
 // Event handler for button presses
 function eventHandler(eventID) {
+
+  // If AC was pressed
+  if (eventID === 'clear') {
+    clearText();
+  }
+
   // If a number key was pressed
   if (eventID === 'zero' || 'one' || 'two' ||
-   'three' || 'four' || 'five' || 'six' ||
+    'three' || 'four' || 'five' || 'six' ||
     'seven' || 'eight' || 'nine') {
-      inputNumber(eventID);
+    inputNumber(eventID);
   }
+
+  // If the addition key was pressed
+  if (eventID === 'add') {
+    addition();
+  }
+
+  // If the addition key was pressed
+  if (eventID === 'subtract') {
+    subtraction();
+  }
+
+  // If the addition key was pressed
+  if (eventID === 'multiply') {
+    multiplication();
+  }
+
+  // If the addition key was pressed
+  if (eventID === 'divide') {
+    division();
+  }
+
+  // If the calculate key was pressed
+  if (eventID === 'equals') {
+    calculate();
+  }
+}
+
+// Clear text function
+function clearText() {
+  calculator['display1'].textContent = '';
+  calculator['display2'].textContent = '';
+  calculator['currOper'] = '';
 }
 
 // Number input function
 function inputNumber(eventID) {
   // Do not allow leading 0's
-  if (calculator['display'].textContent[0] === '0') {
-    calculator['field2'] = '';
+  if (calculator['display1'].textContent[0] === '0') {
+    calculator['display1'].textContent = '';
   }
   // Add number to field2
   if (eventID === 'zero') {
-    calculator['field2'] += '0';
+    calculator['display1'].textContent += '0';
   }
   if (eventID === 'one') {
-    calculator['field2'] += '1';
+    calculator['display1'].textContent += '1';
   }
   if (eventID === 'two') {
-    calculator['field2'] += '2';
+    calculator['display1'].textContent += '2';
   }
   if (eventID === 'three') {
-    calculator['field2'] += '3';
+    calculator['display1'].textContent += '3';
   }
   if (eventID === 'four') {
-    calculator['field2'] += '4';
+    calculator['display1'].textContent += '4';
   }
   if (eventID === 'five') {
-    calculator['field2'] += '5';
+    calculator['display1'].textContent += '5';
   }
   if (eventID === 'six') {
-    calculator['field2'] += '6';
+    calculator['display1'].textContent += '6';
   }
   if (eventID === 'seven') {
-    calculator['field2'] += '7';
+    calculator['display1'].textContent += '7';
   }
   if (eventID === 'eight') {
-    calculator['field2'] += '8';
+    calculator['display1'].textContent += '8';
   }
   if (eventID === 'nine') {
-    calculator['field2'] += '9';
+    calculator['display1'].textContent += '9';
   }
-  // Display new number
-  calculator['display'].textContent = calculator['field2'];
-  console.log(calculator['field2']);
-  console.log(calculator[`display`].textContent);
+}
+
+// Addition function
+function addition() {
+  if (calculator['display1'].textContent !== '') {
+    if (calculator['display2'].textContent !== '') {
+      calculate();
+    }
+    calculator['display2'].textContent = calculator['display1'].textContent + ' +';
+    calculator['display1'].textContent = '';
+    calculator['currOper'] = "add";
+  }
+}
+
+// Subtraction function
+function subtraction() {
+  if (calculator['display1'].textContent !== '') {
+    if (calculator['display2'].textContent !== '') {
+      calculate();
+    }
+    calculator['display2'].textContent = calculator['display1'].textContent + ' -';
+    calculator['display1'].textContent = '';
+    calculator['currOper'] = "subtract";
+  }
+}
+
+// Multiplication function
+function multiplication() {
+  if (calculator['display1'].textContent !== '') {
+    if (calculator['display2'].textContent !== '') {
+      calculate();
+    }
+    calculator['display2'].textContent = calculator['display1'].textContent + ' *';
+    calculator['display1'].textContent = '';
+    calculator['currOper'] = "multiply";
+  }
+}
+
+// Division function
+function division() {
+  if (calculator['display1'].textContent !== '') {
+    if (calculator['display2'].textContent !== '') {
+      calculate();
+    }
+    calculator['display2'].textContent = calculator['display1'].textContent + ' %';
+    calculator['display1'].textContent = '';
+    calculator['currOper'] = "division";
+  }
+}
+
+// Calculate function
+function calculate() {
+  let number1;
+  let number2;
+  if (calculator['display1'].textContent &&
+    calculator['display2'].textContent !== '') {
+    number1 = parseFloat(calculator['display2'].textContent.slice(0, -2));
+    number2 = parseFloat(calculator['display1'].textContent);
+    calculator['display1'].textContent = '';
+    calculator['display2'].textContent = '';
+    if (calculator['currOper'] === 'add') {
+      calculator['display1'].textContent = number1 + number2;
+    }
+    if (calculator['currOper'] === 'subtract') {
+      calculator['display1'].textContent = number1 - number2;
+    }
+    if (calculator['currOper'] === 'multiply') {
+      calculator['display1'].textContent = number1 * number2;
+    }
+    if (calculator['currOper'] === 'division') {
+      console.log(number1 / number2);
+      calculator['display1'].textContent = number1 / number2;
+    }
+  }
 }
